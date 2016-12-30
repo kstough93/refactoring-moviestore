@@ -104,4 +104,31 @@ public class MoviestoreApplicationTests {
 	    	+ "You earned 1 frequent renter points", underTest.statement());
 	}
 	
+	@Test
+	public void WalterWhiteCustomerShouldOweThreeForFourDayRentalOfMinionsHTML() {
+	    Movie movie = new Movie("Minions", Movie.CHILDRENS);
+	    Rental rental = new Rental(movie, 4);
+	    Customer underTest = new Customer("Walter White");
+	    underTest.addRental(rental);
+	    assertEquals("<H1>Rentals for <EM>Walter White</EM></H1><P>\n"
+	    	+ "Minions: 3.0<BR>\n"
+	    	+ "<P>You owe <EM>3.0</EM><P>\n"
+	    	+ "On this rental you earned <EM>1</EM> frequent renter points.", underTest.htmlStatement());
+	}
+	
+	@Test 
+	public void WalterWhiteCustomerShouldOweThreeFiftyForOneDayRentalOfCuriousGeorgeAndOneDayRentalOfScarfaceHTML() {
+	    Movie movie1 = new Movie("Curious George", Movie.CHILDRENS);
+	    Movie movie2 = new Movie("Scarface", Movie.REGULAR);
+	    Rental rental1 = new Rental(movie1, 1);
+	    Rental rental2 = new Rental(movie2, 1);
+	    Customer underTest = new Customer("Walter White");
+	    underTest.addRental(rental1);
+	    underTest.addRental(rental2);
+	    assertEquals("<H1>Rentals for <EM>Walter White</EM></H1><P>\n"
+	    	+ "Curious George: 1.5<BR>\n"
+	    	+ "Scarface: 2.0<BR>\n"
+	    	+ "<P>You owe <EM>3.5</EM><P>\n"
+	    	+ "On this rental you earned <EM>2</EM> frequent renter points.", underTest.htmlStatement());
+	}
 }
